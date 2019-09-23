@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Arthem\Bundle\LocaleBundle\Twig\LocaleExtension:
+        arguments:
+            $availableLocales: '%arthem.locale.locales%'
+        tags:
+            - { name: twig.extension }
+
+    Arthem\Bundle\LocaleBundle\LocaleResolver:
+        arguments:
+            $availableLocales: '%arthem.locale.locales%'
+
+    Arthem\Bundle\LocaleBundle\Listener\LocaleSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Arthem\Bundle\LocaleBundle\Listener\UserLocaleSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
