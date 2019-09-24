@@ -32,8 +32,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
 
     public function onInteractiveLogin(InteractiveLoginEvent $event)
     {
-        $securityUser = $event->getAuthenticationToken()->getUser();
-        $user = $securityUser->getUser();
+        $user = $event->getAuthenticationToken()->getUser();
         if (!$user instanceof UserLocaleInterface) {
             return;
         }
