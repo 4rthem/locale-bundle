@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Arthem\Bundle\LocaleBundle\Listener;
 
 use Arthem\Bundle\LocaleBundle\LocaleResolver;
+use Arthem\Bundle\LocaleBundle\Model\UserLocaleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -33,7 +34,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     {
         $securityUser = $event->getAuthenticationToken()->getUser();
         $user = $securityUser->getUser();
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof UserLocaleInterface) {
             return;
         }
 
