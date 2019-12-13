@@ -17,10 +17,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('arthem_locale');
-
-        $rootNode
+        $treeBuilder = new TreeBuilder('arthem_locale');
+        $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('locales')
                     ->prototype('scalar')
