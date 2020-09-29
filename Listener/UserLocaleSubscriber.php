@@ -14,15 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserLocaleSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
-     * @var LocaleResolver
-     */
-    private $localeResolver;
+    private SessionInterface $session;
+    private LocaleResolver $localeResolver;
 
     public function __construct(SessionInterface $session, LocaleResolver $localeResolver)
     {

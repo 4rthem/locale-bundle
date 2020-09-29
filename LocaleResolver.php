@@ -6,10 +6,7 @@ namespace Arthem\Bundle\LocaleBundle;
 
 class LocaleResolver
 {
-    /**
-     * @var array
-     */
-    private $locales;
+    private array $locales;
 
     public function __construct(array $availableLocales)
     {
@@ -21,18 +18,15 @@ class LocaleResolver
         return $this->locales;
     }
 
-    /**
-     * @return string|null
-     */
     public function getClosestLanguage(string $locale): ?string
     {
-        $locale = str_replace('-', '_', trim($locale));
+        $locale = str_replace('_', '-', trim($locale));
         if (false !== array_search($locale, $this->locales, true)) {
             return $locale;
         }
 
-        if (strpos($locale, '_') > 0) {
-            [$language] = explode('_', $locale, 2);
+        if (strpos($locale, '-') > 0) {
+            [$language] = explode('-', $locale, 2);
             if (false !== array_search($language, $this->locales, true)) {
                 return $language;
             }

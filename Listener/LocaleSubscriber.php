@@ -30,7 +30,7 @@ class LocaleSubscriber implements EventSubscriberInterface
             $closest = $this->localeResolver->getClosestLanguage($locale);
             if ($closest !== $locale) {
                 $request->attributes->set('_locale', $closest);
-                $request->setLocale($locale);
+                $request->setLocale($closest);
             }
         }
 
