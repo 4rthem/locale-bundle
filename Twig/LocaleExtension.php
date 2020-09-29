@@ -12,20 +12,9 @@ use Twig_SimpleFunction;
 
 class LocaleExtension extends Twig_Extension
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
-
-    /**
-     * @var array
-     */
-    private $locales;
-
-    /**
-     * @var array
-     */
-    private static $localeNames;
+    private UrlGeneratorInterface $router;
+    private array $locales;
+    private static ?array $localeNames = null;
 
     public function __construct(UrlGeneratorInterface $router, array $availableLocales)
     {
@@ -64,7 +53,7 @@ class LocaleExtension extends Twig_Extension
 
     public function getAvailableLocales(): array
     {
-        if (isset(self::$localeNames)) {
+        if (null !== self::$localeNames) {
             return self::$localeNames;
         }
 
