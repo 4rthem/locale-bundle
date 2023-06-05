@@ -6,23 +6,20 @@ namespace Arthem\Bundle\LocaleBundle\Listener;
 
 use Arthem\Bundle\LocaleBundle\LocaleResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var LocaleResolver
-     */
-    private $localeResolver;
+    private LocaleResolver $localeResolver;
 
     public function __construct(LocaleResolver $localeResolver)
     {
         $this->localeResolver = $localeResolver;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         $request = $event->getRequest();
 
@@ -52,7 +49,7 @@ class LocaleSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(ResponseEvent $event)
     {
         if ($locale = $event->getRequest()->getLocale()) {
             $event->getResponse()->headers->set('Content-Language', $locale);

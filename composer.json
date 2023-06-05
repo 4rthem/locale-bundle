@@ -6,10 +6,11 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
-        "symfony/framework-bundle": "^4.0",
-        "symfony/translation": "^4.0",
-        "symfony/security-bundle": "^4.0",
-        "twig/twig": "^2.0"
+        "ext-intl": "*",
+        "symfony/framework-bundle": "^4.0 || ^5 || ^6",
+        "symfony/translation": "^4.0 || ^5 || ^6",
+        "symfony/security-bundle": "^4.0 || ^5 || ^6",
+        "twig/twig": "^2.0 || ^3"
     },
     "autoload": {
         "psr-4": {

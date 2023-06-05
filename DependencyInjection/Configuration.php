@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('locales')
-                    ->prototype('scalar')
+                    ->scalarPrototype()
                     ->isRequired()
                 ->end()
             ->end()

@@ -7,10 +7,10 @@ namespace Arthem\Bundle\LocaleBundle\Twig;
 use Locale;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class LocaleExtension extends Twig_Extension
+class LocaleExtension extends AbstractExtension
 {
     private UrlGeneratorInterface $router;
     private array $locales;
@@ -25,12 +25,12 @@ class LocaleExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('path_for_locale', [$this, 'getPathForLocale']),
-            new Twig_SimpleFunction('get_available_locales', [$this, 'getAvailableLocales']),
+            new TwigFunction('path_for_locale', [$this, 'getPathForLocale']),
+            new TwigFunction('get_available_locales', [$this, 'getAvailableLocales']),
         ];
     }
 
-    public function getPathForLocale(Request $request, string $locale, bool $url = false)
+    public function getPathForLocale(Request $request, string $locale, bool $url = false): ?string
     {
         $params = array_merge($request->attributes->all(), $request->query->all());
         $params = array_filter($params, function (string $key) {
