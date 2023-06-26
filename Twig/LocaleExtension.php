@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Arthem\Bundle\LocaleBundle\Twig;
 
-use Locale;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
@@ -33,9 +32,7 @@ class LocaleExtension extends AbstractExtension
     public function getPathForLocale(Request $request, string $locale, bool $url = false): ?string
     {
         $params = array_merge($request->attributes->all(), $request->query->all());
-        $params = array_filter($params, function (string $key) {
-            return 0 !== strpos($key, '_');
-        }, ARRAY_FILTER_USE_KEY);
+        $params = array_filter($params, fn(string $key): bool => !str_starts_with($key, '_'), ARRAY_FILTER_USE_KEY);
         $params['_locale'] = $locale;
 
         if (!$request->attributes->has('_route')) {
@@ -59,7 +56,7 @@ class LocaleExtension extends AbstractExtension
 
         self::$localeNames = [];
         foreach ($this->locales as $l) {
-            self::$localeNames[str_replace('_', '-', $l)] = ucfirst(Locale::getDisplayName($l, $l));
+            self::$localeNames[str_replace('_', '-', $l)] = ucfirst(\Locale::getDisplayName($l, $l));
         }
 
         return self::$localeNames;

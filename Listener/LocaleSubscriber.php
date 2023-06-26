@@ -12,14 +12,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
-    private LocaleResolver $localeResolver;
-
-    public function __construct(LocaleResolver $localeResolver)
+    public function __construct(private readonly LocaleResolver $localeResolver)
     {
-        $this->localeResolver = $localeResolver;
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
